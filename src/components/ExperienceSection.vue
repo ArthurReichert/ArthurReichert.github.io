@@ -1,9 +1,8 @@
 <script setup>
-import { ref } from 'vue'
-import { useScrollAnimation } from '../composables/usePortfolio'
-import { experiences } from '../data/portfolioData'
+import { useScrollAnimation, useLanguage } from '../composables/usePortfolio'
 
 const { observeElement } = useScrollAnimation()
+const { tData } = useLanguage()
 const handleRef = (el) => observeElement(el)
 </script>
 
@@ -11,15 +10,15 @@ const handleRef = (el) => observeElement(el)
   <section id="experience" class="section-padding relative bg-surface-100/50 dark:bg-surface-900/50" aria-labelledby="experience-heading">
     <div class="section-container">
       <div class="text-center mb-16">
-        <span class="chip mb-4">Trajetória</span>
-        <h2 id="experience-heading" class="text-3xl sm:text-4xl font-bold mt-4">Experiência <span class="gradient-text">Profissional</span></h2>
+        <span class="chip mb-4">{{ tData.experience.chip }}</span>
+        <h2 id="experience-heading" class="text-3xl sm:text-4xl font-bold mt-4">{{ tData.experience.heading }} <span class="gradient-text">{{ tData.experience.headingGradient }}</span></h2>
       </div>
 
       <div class="relative">
         <div class="absolute left-4 lg:left-1/2 lg:-translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-500 via-primary-400 to-primary-300 dark:from-primary-600 dark:via-primary-500 dark:to-primary-400" aria-hidden="true"></div>
 
         <div class="space-y-12">
-          <article v-for="(exp, index) in experiences" :key="exp.id" :ref="handleRef"
+          <article v-for="(exp, index) in tData.experience.items" :key="exp.id" :ref="handleRef"
             :class="['relative opacity-0 translate-y-8 transition-all duration-700 ease-out [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0', index % 2 === 0 ? 'lg:pr-[52%]' : 'lg:pl-[52%]']"
             :style="{ transitionDelay: `${index * 0.15}s` }">
             <div :class="['absolute left-4 lg:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-4 z-10', exp.isCurrent ? 'bg-primary-500 border-primary-200 dark:border-primary-800 animate-pulse-glow' : 'bg-surface-300 dark:bg-surface-600 border-surface-100 dark:border-surface-800']" aria-hidden="true"></div>
@@ -29,7 +28,7 @@ const handleRef = (el) => observeElement(el)
                 <div>
                   <div class="flex items-center gap-2 mb-1">
                     <h3 class="text-xl font-bold text-surface-900 dark:text-surface-100">{{ exp.role }}</h3>
-                    <span v-if="exp.isCurrent" class="px-2 py-0.5 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">Atual</span>
+                    <span v-if="exp.isCurrent" class="px-2 py-0.5 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">{{ tData.experience.current }}</span>
                   </div>
                   <p class="text-primary-600 dark:text-primary-400 font-semibold">{{ exp.company }}</p>
                 </div>

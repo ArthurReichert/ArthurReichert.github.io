@@ -1,9 +1,8 @@
 <script setup>
-import { ref } from 'vue'
-import { useScrollAnimation } from '../composables/usePortfolio'
-import { hardSkills, softSkills } from '../data/portfolioData'
+import { useScrollAnimation, useLanguage } from '../composables/usePortfolio'
 
 const { observeElement } = useScrollAnimation()
+const { tData } = useLanguage()
 const handleRef = (el) => observeElement(el)
 </script>
 
@@ -11,8 +10,8 @@ const handleRef = (el) => observeElement(el)
   <section id="skills" class="section-padding" aria-labelledby="skills-heading">
     <div class="section-container">
       <div class="text-center mb-16">
-        <span class="chip mb-4">Competências</span>
-        <h2 id="skills-heading" class="text-3xl sm:text-4xl font-bold mt-4">Hard & Soft <span class="gradient-text">Skills</span></h2>
+        <span class="chip mb-4">{{ tData.skills.chip }}</span>
+        <h2 id="skills-heading" class="text-3xl sm:text-4xl font-bold mt-4">{{ tData.skills.heading }} <span class="gradient-text">{{ tData.skills.headingGradient }}</span></h2>
       </div>
 
       <div class="grid lg:grid-cols-2 gap-12">
@@ -20,10 +19,10 @@ const handleRef = (el) => observeElement(el)
         <div :ref="handleRef" class="opacity-0 translate-y-8 transition-all duration-700 ease-out [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0">
           <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
             <span class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary-100 dark:bg-primary-900/40 text-sm" aria-hidden="true">⚡</span>
-            Hard Skills
+            {{ tData.skills.hardSkillsTitle }}
           </h3>
           <div class="grid sm:grid-cols-2 gap-4">
-            <div v-for="skill in hardSkills" :key="skill.name" class="glass-card p-4 flex items-center gap-3 hover:scale-[1.02] transition-transform duration-300">
+            <div v-for="skill in tData.skills.hardSkills" :key="skill.name" class="glass-card p-4 flex items-center gap-3 hover:scale-[1.02] transition-transform duration-300">
               <span class="text-2xl" aria-hidden="true">{{ skill.icon }}</span>
               <span class="font-semibold text-surface-800 dark:text-surface-200">{{ skill.name }}</span>
             </div>
@@ -34,13 +33,38 @@ const handleRef = (el) => observeElement(el)
         <div :ref="handleRef" class="opacity-0 translate-y-8 transition-all duration-700 ease-out [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0" style="transition-delay: 0.2s;">
           <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
             <span class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary-100 dark:bg-primary-900/40 text-sm" aria-hidden="true">🧠</span>
-            Soft Skills
+            {{ tData.skills.softSkillsTitle }}
           </h3>
           <div class="grid sm:grid-cols-2 gap-4">
-            <div v-for="skill in softSkills" :key="skill.name" class="glass-card p-5 hover:scale-[1.02] transition-transform duration-300 group">
+            <div v-for="skill in tData.skills.softSkills" :key="skill.name" class="glass-card p-5 hover:scale-[1.02] transition-transform duration-300 group">
               <div class="text-2xl mb-3" aria-hidden="true">{{ skill.icon }}</div>
               <h4 class="font-bold text-surface-800 dark:text-surface-200 mb-1">{{ skill.name }}</h4>
               <p class="text-sm text-surface-500 dark:text-surface-400 leading-relaxed">{{ skill.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Languages -->
+      <div :ref="handleRef" class="mt-12 opacity-0 translate-y-8 transition-all duration-700 ease-out [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0" style="transition-delay: 0.3s;">
+        <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+          <span class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary-100 dark:bg-primary-900/40 text-sm" aria-hidden="true">🌍</span>
+          {{ tData.skills.languagesTitle }}
+        </h3>
+        <div class="grid sm:grid-cols-3 gap-4">
+          <div v-for="lang in tData.skills.languages" :key="lang.name" class="glass-card p-5 hover:scale-[1.02] transition-transform duration-300">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-2xl" aria-hidden="true">{{ lang.icon }}</span>
+              <div>
+                <h4 class="font-bold text-surface-800 dark:text-surface-200 leading-tight">{{ lang.name }}</h4>
+                <p class="text-xs font-medium text-primary-600 dark:text-primary-400">{{ lang.level }}</p>
+              </div>
+            </div>
+            <div class="w-full h-1.5 bg-surface-200 dark:bg-surface-700 rounded-full overflow-hidden">
+              <div
+                class="h-full bg-gradient-to-r from-primary-500 to-primary-400 rounded-full transition-all duration-700"
+                :style="{ width: lang.barWidth }"
+              ></div>
             </div>
           </div>
         </div>

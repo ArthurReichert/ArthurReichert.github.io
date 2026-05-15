@@ -1,10 +1,11 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue'
 import ThemeSwitcher from './ThemeSwitcher.vue'
-import { useNavigation } from '../composables/usePortfolio'
-import { navigationLinks } from '../data/portfolioData'
+import LanguageSwitcher from './LanguageSwitcher.vue'
+import { useNavigation, useLanguage } from '../composables/usePortfolio'
 
 const { isMenuOpen, activeSection, handleNavigate, toggleMenu, closeMenu } = useNavigation()
+const { tData } = useLanguage()
 const isScrolled = ref(false)
 
 const handleScroll = () => {
@@ -24,7 +25,7 @@ onUnmounted(() => {
   <nav
     id="main-navigation"
     role="navigation"
-    aria-label="Navegação principal"
+    :aria-label="tData.nav.ariaLabel"
     :class="[
       'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
       isScrolled ? 'glass shadow-lg shadow-surface-900/5 dark:shadow-black/20' : 'bg-transparent'
@@ -43,7 +44,7 @@ onUnmounted(() => {
         <!-- Desktop links -->
         <div class="hidden md:flex items-center gap-1" role="menubar">
           <a
-            v-for="link in navigationLinks"
+            v-for="link in tData.nav.links"
             :key="link.id"
             href="javascript:void(0)"
             role="menuitem"
@@ -57,20 +58,24 @@ onUnmounted(() => {
           >
             {{ link.label }}
           </a>
-          <div class="ml-3">
+          <div class="ml-2">
+            <LanguageSwitcher />
+          </div>
+          <div class="ml-1">
             <ThemeSwitcher />
           </div>
         </div>
 
         <!-- Mobile controls -->
         <div class="flex md:hidden items-center gap-2">
+          <LanguageSwitcher />
           <ThemeSwitcher />
           <button
             id="mobile-menu-toggle"
             @click="toggleMenu"
             :aria-expanded="isMenuOpen"
             aria-controls="mobile-menu"
-            aria-label="Menu de navegação"
+            :aria-label="tData.nav.menuAriaLabel"
             class="p-2 rounded-lg text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500"
           >
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">

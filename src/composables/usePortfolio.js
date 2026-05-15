@@ -1,4 +1,25 @@
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { translations } from '../i18n/translations'
+
+// ─── Language singleton ────────────────────────────────────────────────────
+const SUPPORTED_LOCALES = ['pt', 'en', 'es']
+const _locale = ref(localStorage.getItem('locale') || 'pt')
+
+export function useLanguage() {
+  const currentLocale = _locale
+
+  const setLocale = (lang) => {
+    if (SUPPORTED_LOCALES.includes(lang)) {
+      _locale.value = lang
+      localStorage.setItem('locale', lang)
+      document.documentElement.lang = lang
+    }
+  }
+
+  const tData = computed(() => translations[_locale.value] || translations.pt)
+
+  return { currentLocale, setLocale, tData, SUPPORTED_LOCALES }
+}
 
 /**
  * Composable to toggle between light and dark themes.

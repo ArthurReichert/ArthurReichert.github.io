@@ -1,8 +1,8 @@
 <script setup>
-import { useScrollAnimation } from '../composables/usePortfolio'
-import { education } from '../data/portfolioData'
+import { useScrollAnimation, useLanguage } from '../composables/usePortfolio'
 
 const { observeElement } = useScrollAnimation()
+const { tData } = useLanguage()
 const handleRef = (el) => observeElement(el)
 </script>
 
@@ -10,12 +10,12 @@ const handleRef = (el) => observeElement(el)
   <section id="education" class="section-padding bg-surface-100/50 dark:bg-surface-900/50" aria-labelledby="education-heading">
     <div class="section-container">
       <div class="text-center mb-16">
-        <span class="chip mb-4">Formação</span>
-        <h2 id="education-heading" class="text-3xl sm:text-4xl font-bold mt-4">Formação <span class="gradient-text">Acadêmica</span></h2>
+        <span class="chip mb-4">{{ tData.education.chip }}</span>
+        <h2 id="education-heading" class="text-3xl sm:text-4xl font-bold mt-4">{{ tData.education.heading }} <span class="gradient-text">{{ tData.education.headingGradient }}</span></h2>
       </div>
 
       <div class="max-w-3xl mx-auto">
-        <div v-for="edu in education" :key="edu.degree" :ref="handleRef" class="glass-card p-8 opacity-0 translate-y-8 transition-all duration-700 ease-out [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0">
+        <div v-for="edu in tData.education.items" :key="edu.degree" :ref="handleRef" class="glass-card p-8 opacity-0 translate-y-8 transition-all duration-700 ease-out [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0">
           <div class="flex items-start gap-5">
             <div class="w-14 h-14 flex items-center justify-center rounded-2xl bg-primary-100 dark:bg-primary-900/40 shrink-0" aria-hidden="true">
               <svg class="w-7 h-7 text-primary-600 dark:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
