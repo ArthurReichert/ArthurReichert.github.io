@@ -107,7 +107,7 @@ onUnmounted(() => {
       >
         <div class="px-4 py-3 space-y-1">
           <a
-            v-for="link in navigationLinks"
+            v-for="link in tData.nav.links"
             :key="link.id"
             href="javascript:void(0)"
             role="menuitem"

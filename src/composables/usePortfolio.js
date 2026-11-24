@@ -116,7 +116,7 @@ export function useNavigation() {
   }
 
   onMounted(() => {
-    const sections = ['hero', 'about', 'experience', 'skills', 'education', 'contact']
+    const sections = ['hero', 'about', 'experience', 'projects', 'skills', 'education', 'contact']
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

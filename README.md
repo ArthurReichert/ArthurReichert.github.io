@@ -1,7 +1,24 @@
-# Vue 3 + Vite
+# arthurreichert.github.io
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Site pessoal e currículo de Arthur Reichert, publicado em https://arthurreichert.github.io/.
 
-## Recommended IDE Setup
+## Stack
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Vue 3 + Vite + Tailwind CSS. Sem back-end. Três idiomas (pt, en, es) e tema claro/escuro.
+
+## Onde editar o conteúdo
+
+- `src/i18n/translations.js`: todos os textos, por idioma (hero, sobre, experiência, projetos, skills, formação, contato).
+- `src/data/portfolioData.js`: contatos, links, tags e imagens dos projetos e a lista de cursos.
+- `public/projects/`: ícones e capturas de tela dos apps.
+
+## Rodar local
+
+```bash
+npm install
+npm run dev
+```
+
+## Publicação
+
+Todo push na `main` dispara `.github/workflows/deploy.yml`, que faz o build e publica `dist/` na branch `gh-pages`. O GitHub Pages serve essa branch.

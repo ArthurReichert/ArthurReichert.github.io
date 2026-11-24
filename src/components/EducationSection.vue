@@ -1,5 +1,6 @@
 <script setup>
 import { useScrollAnimation, useLanguage } from '../composables/usePortfolio'
+import { courses } from '../data/portfolioData'
 
 const { observeElement } = useScrollAnimation()
 const { tData } = useLanguage()
@@ -35,6 +36,30 @@ const handleRef = (el) => observeElement(el)
               </ul>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div :ref="handleRef" class="mt-14 opacity-0 translate-y-8 transition-all duration-700 ease-out [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0" style="transition-delay: 0.15s;">
+        <h3 class="text-xl font-bold mb-2 flex items-center gap-2">
+          <span class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary-100 dark:bg-primary-900/40 text-sm" aria-hidden="true">📚</span>
+          {{ tData.education.coursesTitle }}
+        </h3>
+        <p class="text-sm text-surface-500 dark:text-surface-400 mb-6">{{ tData.education.coursesSubtitle }}</p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <a
+            v-for="c in courses"
+            :key="c.id"
+            :href="c.url"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="glass-card p-4 block hover:scale-[1.02] transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
+          >
+            <p class="font-semibold text-surface-800 dark:text-surface-200 leading-snug mb-1">{{ c.name }}</p>
+            <p class="text-xs text-surface-500 dark:text-surface-400 mb-3">{{ c.provider }}</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span v-for="t in c.topics" :key="t" class="chip text-[11px] px-2 py-0.5">{{ t }}</span>
+            </div>
+          </a>
         </div>
       </div>
     </div>
