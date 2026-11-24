@@ -4,7 +4,7 @@ export const personalInfo = {
   fullName: 'Arthur Reichert',
   location: 'Parobé, RS — Brasil',
   email: 'arthur.reichert999@gmail.com',
-  linkedin: 'https://linkedin.com/in/arthur-reichert',
+  linkedin: 'https://www.linkedin.com/in/arthur-reichert-ba6494288/',
   github: 'https://github.com/ArthurReichert',
 }
 

@@ -15,7 +15,6 @@ export const translations = {
       ],
     },
     hero: {
-      available: 'Aberto a novas oportunidades',
       linkedinAriaLabel: 'Visitar perfil no LinkedIn',
       githubAriaLabel: 'Visitar perfil no GitHub',
       personalInfo: {
@@ -257,7 +256,6 @@ export const translations = {
       ],
     },
     hero: {
-      available: 'Open to new opportunities',
       linkedinAriaLabel: 'Visit LinkedIn profile',
       githubAriaLabel: 'Visit GitHub profile',
       personalInfo: {
@@ -499,7 +497,6 @@ export const translations = {
       ],
     },
     hero: {
-      available: 'Abierto a nuevas oportunidades',
       linkedinAriaLabel: 'Visitar perfil en LinkedIn',
       githubAriaLabel: 'Visitar perfil en GitHub',
       personalInfo: {

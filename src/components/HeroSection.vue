@@ -24,14 +24,6 @@ const { tData } = useLanguage()
     </div>
 
     <div class="section-container text-center px-4">
-      <!-- Status badge -->
-      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 animate-fade-in-down">
-        <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" aria-hidden="true"></span>
-        <span class="text-sm font-medium text-surface-600 dark:text-surface-300">
-          {{ tData.hero.available }}
-        </span>
-      </div>
-
       <!-- Name -->
       <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight mb-4 animate-fade-in-up" style="animation-delay: 0.1s;">
         {{ personalInfo.fullName }}
