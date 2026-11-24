@@ -1,9 +1,22 @@
 <script setup>
+import { ref } from 'vue'
 import { personalInfo } from '../data/portfolioData'
 import { useLanguage } from '../composables/usePortfolio'
 
 const { tData } = useLanguage()
 const currentYear = new Date().getFullYear()
+const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(personalInfo.email)}`
+const copied = ref(false)
+
+const copyEmail = async () => {
+  try {
+    await navigator.clipboard.writeText(personalInfo.email)
+  } catch {
+    // sem clipboard (http ou navegador antigo): o endereço fica selecionável ao lado
+  }
+  copied.value = true
+  setTimeout(() => { copied.value = false }, 2000)
+}
 </script>
 
 <template>
@@ -21,8 +34,8 @@ const currentYear = new Date().getFullYear()
       </div>
 
       <!-- Contact buttons -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-        <a id="contact-email" :href="`mailto:${personalInfo.email}`" class="btn-primary" :aria-label="tData.contact.emailAriaLabel">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-5">
+        <a id="contact-email" :href="gmailUrl" target="_blank" rel="noopener noreferrer" class="btn-primary" :aria-label="tData.contact.emailAriaLabel">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
           {{ tData.contact.emailButton }}
         </a>
@@ -31,6 +44,18 @@ const currentYear = new Date().getFullYear()
           {{ tData.contact.linkedinButton }}
         </a>
       </div>
+
+      <!-- Endereço em texto, para quem não usa Gmail -->
+      <p class="flex flex-wrap items-center justify-center gap-2 mb-16 text-sm text-surface-500 dark:text-surface-400">
+        <span class="select-all font-mono">{{ personalInfo.email }}</span>
+        <button
+          type="button"
+          @click="copyEmail"
+          class="px-2 py-1 rounded-lg text-xs font-semibold text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+        >
+          {{ copied ? tData.contact.copied : tData.contact.copyEmail }}
+        </button>
+      </p>
 
       <!-- Social links & copyright -->
       <div class="border-t border-surface-200 dark:border-surface-800 pt-8">
